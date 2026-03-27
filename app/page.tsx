@@ -10,7 +10,19 @@ export default function Home() {
   const [resultUrl, setResultUrl] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isDragging, setIsDragging] = useState(false);
+  const [originalMeta, setOriginalMeta] = useState<{ width: number; height: number } | null>(null);
+  const [resultMeta, setResultMeta] = useState<{ width: number; height: number } | null>(null);
+  const [previewMode, setPreviewMode] = useState<"fit" | "full">("fit");
+  const [activeViewer, setActiveViewer] = useState<"original" | "result" | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const getImageMeta = (url: string) =>
+    new Promise<{ width: number; height: number }>((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => resolve({ width: img.naturalWidth, height: img.naturalHeight });
+      img.onerror = reject;
+      img.src = url;
+    });
 
   const handleFile = useCallback(async (file: File) => {
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
@@ -27,10 +39,17 @@ export default function Home() {
 
     const originalObjectUrl = URL.createObjectURL(file);
     setOriginalUrl(originalObjectUrl);
+    setResultUrl("");
+    setOriginalMeta(null);
+    setResultMeta(null);
+    setPreviewMode("fit");
     setStatus("processing");
     setError("");
 
     try {
+      const originalInfo = await getImageMeta(originalObjectUrl);
+      setOriginalMeta(originalInfo);
+
       const formData = new FormData();
       formData.append("image", file);
 
@@ -46,7 +65,10 @@ export default function Home() {
 
       const blob = await res.blob();
       const resultObjectUrl = URL.createObjectURL(blob);
+      const resultInfo = await getImageMeta(resultObjectUrl);
+
       setResultUrl(resultObjectUrl);
+      setResultMeta(resultInfo);
       setStatus("success");
     } catch (err) {
       setError(err instanceof Error ? err.message : "处理失败，请重试");
@@ -81,18 +103,53 @@ export default function Home() {
     setOriginalUrl("");
     setResultUrl("");
     setError("");
+    setOriginalMeta(null);
+    setResultMeta(null);
+    setPreviewMode("fit");
+    setActiveViewer(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
+  const renderPreview = (
+    url: string,
+    alt: string,
+    transparent = false,
+    meta?: { width: number; height: number } | null,
+    viewerType?: "original" | "result"
+  ) => (
+    <div className={`rounded-xl overflow-hidden ${transparent ? "checkerboard" : "bg-gray-50"}`}>
+      <div className="relative flex items-center justify-center bg-transparent">
+        <img
+          src={url}
+          alt={alt}
+          className={`w-full ${previewMode === "fit" ? "h-72 object-contain" : "h-auto object-none max-h-[32rem]"}`}
+          style={previewMode === "full" ? { width: "auto", maxWidth: "100%" } : undefined}
+        />
+        {viewerType && (
+          <button
+            onClick={() => setActiveViewer(viewerType)}
+            className="absolute top-3 right-3 bg-black/60 hover:bg-black/75 text-white text-xs px-3 py-1.5 rounded-full transition-colors"
+          >
+            查看原尺寸
+          </button>
+        )}
+      </div>
+      {meta && (
+        <div className="px-4 py-3 text-xs text-gray-500 border-t border-gray-100 bg-white/90">
+          分辨率：{meta.width} × {meta.height}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Header - remove.bg 风格深色导航 */}
       <header className="bg-[#1a1a2e] text-white px-6 py-3">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 bg-white rounded flex items-center justify-center">
               <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#1a1a2e]" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
               </svg>
             </div>
             <span className="font-bold text-lg tracking-tight">bg-remover</span>
@@ -111,10 +168,9 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
       <main className="flex-1">
         <section className="bg-gradient-to-b from-[#f0f4ff] to-white py-16 px-6">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               Remove Image Background
             </h1>
@@ -122,7 +178,6 @@ export default function Home() {
               100% 自动去除背景，完全免费
             </p>
 
-            {/* 上传区 */}
             {(status === "idle" || status === "error") && (
               <div
                 className={`relative bg-white rounded-2xl shadow-lg border-2 transition-all cursor-pointer
@@ -136,7 +191,6 @@ export default function Home() {
                 onDrop={handleDrop}
               >
                 <div className="py-16 px-8 flex flex-col items-center gap-5">
-                  {/* 上传图标 */}
                   <div className="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center">
                     <svg className="w-10 h-10 text-[#4f46e5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -151,9 +205,11 @@ export default function Home() {
                     <p className="text-gray-400 text-sm mt-3">
                       或拖拽图片到此处 · 支持 JPG / PNG / WEBP · 最大 10MB
                     </p>
+                    <p className="text-xs text-gray-400 mt-2">
+                      已切换为高质量输出，下载后会比预览更清楚
+                    </p>
                   </div>
 
-                  {/* 错误提示 */}
                   {status === "error" && (
                     <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-2.5 rounded-lg">
                       <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -173,7 +229,6 @@ export default function Home() {
               </div>
             )}
 
-            {/* 处理中 */}
             {status === "processing" && (
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 py-16 px-8">
                 <div className="flex flex-col items-center gap-6">
@@ -187,40 +242,61 @@ export default function Home() {
                   )}
                   <div>
                     <p className="text-lg font-semibold text-gray-800">正在智能去除背景...</p>
-                    <p className="text-sm text-gray-400 mt-1">通常需要 2-5 秒，请稍候</p>
+                    <p className="text-sm text-gray-400 mt-1">已使用高质量模式，通常需要 2-5 秒</p>
                   </div>
                   <div className="w-48 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#4f46e5] rounded-full animate-pulse" style={{width: '70%'}}></div>
+                    <div className="h-full bg-[#4f46e5] rounded-full animate-pulse" style={{ width: "70%" }}></div>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* 成功结果 */}
             {status === "success" && (
               <div className="flex flex-col items-center gap-6">
-                {/* 对比图 */}
+                <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white rounded-2xl shadow-sm border border-gray-100 px-5 py-4">
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-gray-800">预览模式</p>
+                    <p className="text-xs text-gray-500 mt-1">如果感觉页面里略糊，先点“查看原尺寸”或直接下载原图</p>
+                  </div>
+                  <div className="inline-flex rounded-xl border border-gray-200 overflow-hidden bg-gray-50">
+                    <button
+                      onClick={() => setPreviewMode("fit")}
+                      className={`px-4 py-2 text-sm font-medium ${previewMode === "fit" ? "bg-[#4f46e5] text-white" : "text-gray-600 hover:bg-gray-100"}`}
+                    >
+                      适配预览
+                    </button>
+                    <button
+                      onClick={() => setPreviewMode("full")}
+                      className={`px-4 py-2 text-sm font-medium ${previewMode === "full" ? "bg-[#4f46e5] text-white" : "text-gray-600 hover:bg-gray-100"}`}
+                    >
+                      原始比例
+                    </button>
+                  </div>
+                </div>
+
                 <div className="w-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                  <div className="grid grid-cols-2 divide-x divide-gray-100">
-                    {/* 原图 */}
-                    <div className="p-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                    <div className="p-4 text-left">
                       <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">原图</p>
-                      <div className="rounded-xl overflow-hidden bg-gray-50">
-                        <img src={originalUrl} alt="原图" className="w-full h-64 object-contain" />
-                      </div>
+                      {renderPreview(originalUrl, "原图", false, originalMeta, "original")}
                     </div>
-                    {/* 结果 */}
-                    <div className="p-4">
+                    <div className="p-4 text-left">
                       <p className="text-xs font-semibold text-[#4f46e5] uppercase tracking-wider mb-3 text-center">去背景结果 ✨</p>
-                      <div className="rounded-xl overflow-hidden checkerboard">
-                        <img src={resultUrl} alt="去背景结果" className="w-full h-64 object-contain" />
-                      </div>
+                      {renderPreview(resultUrl, "去背景结果", true, resultMeta, "result")}
                     </div>
                   </div>
                 </div>
 
-                {/* 操作按钮 */}
-                <div className="flex items-center gap-4">
+                <div className="w-full bg-indigo-50 border border-indigo-100 rounded-2xl p-4 text-left text-sm text-indigo-900">
+                  <p className="font-semibold">清晰度说明</p>
+                  <ul className="mt-2 space-y-1 text-indigo-800">
+                    <li>• 结果已改为 Remove.bg 高质量输出（size=full）</li>
+                    <li>• 页面预览可能因缩放看起来略糊，下载后的 PNG 更接近原始质量</li>
+                    <li>• 你也可以点右上角“查看原尺寸”直接看原图清晰度</li>
+                  </ul>
+                </div>
+
+                <div className="flex items-center gap-4 flex-wrap justify-center">
                   <button
                     onClick={handleDownload}
                     className="flex items-center gap-2 bg-[#4f46e5] hover:bg-[#4338ca] text-white font-semibold px-8 py-3.5 rounded-xl transition-colors shadow-md hover:shadow-lg"
@@ -229,16 +305,12 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                    下载 PNG
+                    下载高质量 PNG
                   </button>
                   <button
                     onClick={handleReset}
                     className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 font-semibold px-8 py-3.5 rounded-xl transition-colors border border-gray-200 shadow-sm"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12V3m0 0L8 7m4-4l4 4" />
-                    </svg>
                     重新上传
                   </button>
                 </div>
@@ -247,28 +319,15 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 功能介绍 */}
         {status === "idle" && (
           <section className="py-16 px-6 bg-white">
             <div className="max-w-5xl mx-auto">
               <h2 className="text-2xl font-bold text-center text-gray-900 mb-12">为什么选择 BG Remover？</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  {
-                    icon: "⚡",
-                    title: "极速处理",
-                    desc: "AI 智能识别，通常 2-5 秒完成，告别漫长等待"
-                  },
-                  {
-                    icon: "🎯",
-                    title: "精准抠图",
-                    desc: "边缘细节清晰，发丝、透明物体都能完美处理"
-                  },
-                  {
-                    icon: "🔒",
-                    title: "隐私安全",
-                    desc: "图片处理后立即删除，不保存任何用户数据"
-                  }
+                  { icon: "⚡", title: "极速处理", desc: "AI 智能识别，通常 2-5 秒完成，告别漫长等待" },
+                  { icon: "🎯", title: "精准抠图", desc: "边缘细节清晰，发丝、透明物体都能完美处理" },
+                  { icon: "🔒", title: "隐私安全", desc: "图片处理后立即删除，不保存任何用户数据" },
                 ].map((item) => (
                   <div key={item.title} className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-indigo-50 transition-colors">
                     <div className="text-4xl mb-4">{item.icon}</div>
@@ -282,13 +341,12 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
       <footer className="bg-[#1a1a2e] text-gray-400 py-8 px-6 text-sm">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 bg-white rounded flex items-center justify-center">
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-[#1a1a2e]" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
               </svg>
             </div>
             <span className="text-white font-semibold">bg-remover</span>
@@ -302,6 +360,31 @@ export default function Home() {
           </p>
         </div>
       </footer>
+
+      {activeViewer && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setActiveViewer(null)}>
+          <div className="relative max-w-6xl max-h-[90vh] w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setActiveViewer(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 text-sm"
+            >
+              关闭 ✕
+            </button>
+            <div className={`rounded-2xl overflow-auto max-h-[90vh] ${activeViewer === "result" ? "checkerboard" : "bg-gray-100"}`}>
+              <img
+                src={activeViewer === "original" ? originalUrl : resultUrl}
+                alt={activeViewer === "original" ? "原图大图" : "结果大图"}
+                className="block mx-auto max-w-none"
+              />
+            </div>
+            <div className="mt-3 text-center text-sm text-white/80">
+              {activeViewer === "original"
+                ? `原图尺寸：${originalMeta?.width ?? "-"} × ${originalMeta?.height ?? "-"}`
+                : `结果图尺寸：${resultMeta?.width ?? "-"} × ${resultMeta?.height ?? "-"}`}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

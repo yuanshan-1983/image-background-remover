@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     // 转发给 Remove.bg API
     const body = new FormData();
     body.append("image_file", file);
-    body.append("size", "auto");
+    body.append("size", "full");
 
     const res = await fetch("https://api.remove.bg/v1.0/removebg", {
       method: "POST",
