@@ -33,9 +33,9 @@ export async function POST(req: Request) {
     // 转发给 Remove.bg API
     const body = new FormData();
     body.append("image_file", file);
-    body.append("size", "full");
+    body.append("size", "auto");
 
-    const res = await fetch("https://api.remove.bg/v1.0/removebg", {
+    let res = await fetch("https://api.remove.bg/v1.0/removebg", {
       method: "POST",
       headers: { "X-Api-Key": apiKey },
       body,
@@ -43,12 +43,13 @@ export async function POST(req: Request) {
 
     if (!res.ok) {
       if (res.status === 402) {
-        return Response.json({ error: "服务繁忙，请稍后再试" }, { status: 503 });
+        return Response.json({ error: "Remove.bg 当前额度或套餐不支持更高质量输出，请稍后再试" }, { status: 503 });
       }
       if (res.status === 400) {
         return Response.json({ error: "图片格式不支持或已损坏" }, { status: 400 });
       }
-      return Response.json({ error: "处理失败，请重试" }, { status: 500 });
+      const text = await res.text();
+      return Response.json({ error: `处理失败，请重试` }, { status: 500 });
     }
 
     // 直接把 PNG 流返回给前端
