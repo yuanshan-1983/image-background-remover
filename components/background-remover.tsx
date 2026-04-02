@@ -106,6 +106,12 @@ export default function BackgroundRemover() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
+        if (response.status === 401) {
+          throw new Error(data?.error || "Please sign in with Google before removing backgrounds.");
+        }
+        if (response.status === 403) {
+          throw new Error(data?.error || "You have reached your free daily limit.");
+        }
         throw new Error(data?.error || "Background removal failed. Please try again.");
       }
 

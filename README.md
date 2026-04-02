@@ -123,8 +123,10 @@ Current status:
 - D1 schema is ready
 - Auth.js route skeleton is ready
 - Google provider wiring is enabled when env vars are present
-- login enforcement for `/api/remove-background` is not enabled yet
-- D1-backed adapter persistence is the next step
+- official D1 adapter wiring is added when the `DB` binding is available
+- `/api/me` auth status endpoint is available
+- `/api/remove-background` now requires login
+- successful and failed remove-background calls are written into D1 usage tables
 
 ## Cloudflare Pages / Git integration notes
 

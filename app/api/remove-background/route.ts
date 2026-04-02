@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { requireSession } from "@/lib/auth/session";
+import { getFreeDailyRemoveBgLimit, getTodayUsageDate } from "@/lib/auth/limits";
+import { getUserUsageCountForDate, incrementDailyUsage, logUsage } from "@/lib/auth/usage";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_FILE_SIZE_MB = Number(process.env.MAX_FILE_SIZE_MB ?? "10");
@@ -7,6 +10,15 @@ const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  const session = await requireSession();
+
+  if (!session?.user?.id) {
+    return NextResponse.json(
+      { error: "Please sign in with Google before removing backgrounds." },
+      { status: 401 }
+    );
+  }
+
   try {
     const apiKey = process.env.REMOVE_BG_API_KEY;
 
@@ -38,6 +50,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const usageDate = getTodayUsageDate();
+    const usedCount = await getUserUsageCountForDate(session.user.id, usageDate);
+    const freeLimit = getFreeDailyRemoveBgLimit();
+
+    if (usedCount >= freeLimit) {
+      return NextResponse.json(
+        { error: `You have reached your free daily limit of ${freeLimit} background removals.` },
+        { status: 403 }
+      );
+    }
+
     const removeBgFormData = new FormData();
     removeBgFormData.append("image_file", imageFile, imageFile.name);
     removeBgFormData.append("size", "auto");
@@ -53,6 +76,16 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorText = await response.text();
+      await logUsage({
+        userId: session.user.id,
+        actionType: "remove_background",
+        inputFilename: imageFile.name,
+        inputMimeType: imageFile.type,
+        inputSizeBytes: imageFile.size,
+        status: "failed",
+        errorMessage: errorText || "Background removal failed. Please try again."
+      });
+
       return NextResponse.json(
         {
           error: errorText || "Background removal failed. Please try again."
@@ -62,6 +95,17 @@ export async function POST(request: NextRequest) {
     }
 
     const arrayBuffer = await response.arrayBuffer();
+
+    await logUsage({
+      userId: session.user.id,
+      actionType: "remove_background",
+      inputFilename: imageFile.name,
+      inputMimeType: imageFile.type,
+      inputSizeBytes: imageFile.size,
+      status: "success"
+    });
+
+    await incrementDailyUsage(session.user.id, usageDate);
 
     return new NextResponse(arrayBuffer, {
       status: 200,
@@ -73,6 +117,13 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("remove-background error", error);
+    await logUsage({
+      userId: session.user.id,
+      actionType: "remove_background",
+      status: "failed",
+      errorMessage: error instanceof Error ? error.message : "Service is temporarily unavailable. Please try again."
+    });
+
     return NextResponse.json(
       { error: "Service is temporarily unavailable. Please try again." },
       { status: 500 }

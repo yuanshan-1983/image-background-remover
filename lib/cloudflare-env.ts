@@ -1,5 +1,14 @@
+export type D1StatementLike = {
+  bind: (...values: unknown[]) => {
+    first: <T = unknown>() => Promise<T | null>;
+    run: () => Promise<unknown>;
+  };
+  first?: <T = unknown>() => Promise<T | null>;
+  run?: () => Promise<unknown>;
+};
+
 export type D1DatabaseLike = {
-  prepare: (...args: unknown[]) => unknown;
+  prepare: (query: string) => D1StatementLike;
 };
 
 export type CloudflareLike = {
