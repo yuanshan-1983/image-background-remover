@@ -1,5 +1,6 @@
 import BackgroundRemover from "@/components/background-remover";
 import AuthCta from "@/components/auth-cta";
+import SessionStatus from "@/components/session-status";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,10 @@ export default function HomePage() {
             Remove backgrounds, preview instantly, download a transparent PNG.
           </p>
         </div>
+      </div>
+
+      <div className="mb-4">
+        <SessionStatus />
       </div>
 
       <div className="mb-8">

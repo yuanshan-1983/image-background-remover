@@ -8,14 +8,15 @@ This folder contains the initial authentication scaffolding for:
 
 ## Current state
 
-- `options.ts` now wires Google OAuth when env vars are present
-- `d1.ts` contains starter D1 helper functions for users / accounts / sessions
-- The current session strategy is still JWT as an intermediate step
-- The project still uses open access for the remover API until auth enforcement is added
+- `options.ts` wires Google OAuth when env vars are present
+- the official `@auth/d1-adapter` is enabled when the Cloudflare `DB` binding exists
+- `d1.ts` contains starter helper functions for future custom logic / usage bookkeeping
+- `/api/me` can now be used as a lightweight auth status check
+- remover API protection is still not enabled yet
 
 ## Next implementation steps
 
-1. Replace JWT session placeholder with full D1-backed adapter logic
-2. Persist first-login user records into D1
-3. Protect `/api/remove-background`
-4. Add usage checks with `usage_daily`
+1. Verify first login writes users / accounts / sessions into remote D1
+2. Protect `/api/remove-background`
+3. Add usage checks with `usage_daily`
+4. Add logout / account menu UI

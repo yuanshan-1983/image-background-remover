@@ -1,5 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { D1Adapter } from "@auth/d1-adapter";
+import { getD1Binding } from "@/lib/cloudflare-env";
 
 function hasGoogleAuthEnv() {
   return Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET && process.env.AUTH_SECRET);
@@ -17,11 +19,14 @@ export function buildAuthOptions(): NextAuthOptions {
     );
   }
 
+  const db = getD1Binding();
+
   return {
     secret: process.env.AUTH_SECRET,
+    adapter: db ? D1Adapter(db) : undefined,
     providers,
     session: {
-      strategy: "jwt"
+      strategy: db ? "database" : "jwt"
     },
     pages: {
       signIn: "/login"
@@ -36,9 +41,9 @@ export function buildAuthOptions(): NextAuthOptions {
         }
         return token;
       },
-      async session({ session, token }) {
-        if (session.user && token.sub) {
-          session.user.id = token.sub;
+      async session({ session, token, user }) {
+        if (session.user) {
+          session.user.id = user?.id || (token.sub as string);
         }
         return session;
       }
