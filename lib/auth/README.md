@@ -8,14 +8,14 @@ This folder contains the initial authentication scaffolding for:
 
 ## Current state
 
-- `options.ts` provides a safe Auth.js config skeleton
+- `options.ts` now wires Google OAuth when env vars are present
 - `d1.ts` contains starter D1 helper functions for users / accounts / sessions
-- OAuth credentials are not wired yet
+- The current session strategy is still JWT as an intermediate step
 - The project still uses open access for the remover API until auth enforcement is added
 
 ## Next implementation steps
 
-1. Add Google OAuth secrets to Cloudflare / local env
-2. Replace JWT session placeholder with full D1-backed adapter logic
+1. Replace JWT session placeholder with full D1-backed adapter logic
+2. Persist first-login user records into D1
 3. Protect `/api/remove-background`
-4. Persist first-login user records into D1
+4. Add usage checks with `usage_daily`

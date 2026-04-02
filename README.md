@@ -122,8 +122,9 @@ AUTH_URL=https://imagebackgroundremover.club
 Current status:
 - D1 schema is ready
 - Auth.js route skeleton is ready
-- Google provider wiring is placeholder-based
+- Google provider wiring is enabled when env vars are present
 - login enforcement for `/api/remove-background` is not enabled yet
+- D1-backed adapter persistence is the next step
 
 ## Cloudflare Pages / Git integration notes
 

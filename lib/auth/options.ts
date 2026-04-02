@@ -2,7 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 function hasGoogleAuthEnv() {
-  return Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET);
+  return Boolean(process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET && process.env.AUTH_SECRET);
 }
 
 export function buildAuthOptions(): NextAuthOptions {
@@ -27,6 +27,15 @@ export function buildAuthOptions(): NextAuthOptions {
       signIn: "/login"
     },
     callbacks: {
+      async signIn() {
+        return true;
+      },
+      async jwt({ token, profile }) {
+        if (profile?.sub) {
+          token.sub = profile.sub;
+        }
+        return token;
+      },
       async session({ session, token }) {
         if (session.user && token.sub) {
           session.user.id = token.sub;
