@@ -100,6 +100,31 @@ Initialize the schema:
 npx wrangler d1 execute image-background-remover-db --file=./database/schema.sql
 ```
 
+## Auth.js + Google OAuth skeleton
+
+The project now includes an initial auth skeleton for D1-based login:
+
+- `app/api/auth/[...nextauth]/route.ts`
+- `app/login/page.tsx`
+- `lib/auth/d1.ts`
+- `lib/auth/options.ts`
+- `types/next-auth.d.ts`
+
+Before enabling Google login, add these environment variables:
+
+```bash
+AUTH_SECRET=your_auth_secret_here
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_client_secret
+AUTH_URL=https://imagebackgroundremover.club
+```
+
+Current status:
+- D1 schema is ready
+- Auth.js route skeleton is ready
+- Google provider wiring is placeholder-based
+- login enforcement for `/api/remove-background` is not enabled yet
+
 ## Cloudflare Pages / Git integration notes
 
 This project is prepared for Cloudflare-compatible deployment using OpenNext and Wrangler.

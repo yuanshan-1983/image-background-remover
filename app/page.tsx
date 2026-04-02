@@ -1,4 +1,5 @@
 import BackgroundRemover from "@/components/background-remover";
+import AuthCta from "@/components/auth-cta";
 
 export default function HomePage() {
   return (
@@ -12,6 +13,10 @@ export default function HomePage() {
             Remove backgrounds, preview instantly, download a transparent PNG.
           </p>
         </div>
+      </div>
+
+      <div className="mb-8">
+        <AuthCta />
       </div>
 
       <BackgroundRemover />
