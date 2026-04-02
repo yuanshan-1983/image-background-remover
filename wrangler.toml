@@ -2,6 +2,10 @@ name = "image-background-remover"
 main = ".open-next/worker.js"
 compatibility_date = "2025-03-01"
 compatibility_flags = ["nodejs_compat"]
+routes = [
+  { pattern = "imagebackgroundremover.club/*", zone_name = "imagebackgroundremover.club" },
+  { pattern = "www.imagebackgroundremover.club/*", zone_name = "imagebackgroundremover.club" }
+]
 
 [assets]
 directory = ".open-next/assets"
