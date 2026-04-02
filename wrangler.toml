@@ -14,7 +14,7 @@ binding = "ASSETS"
 [[d1_databases]]
 binding = "DB"
 database_name = "image-background-remover-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "79edcff9-3be2-47e9-8a29-d26eb7eac838"
 
 [vars]
 MAX_FILE_SIZE_MB = "10"
