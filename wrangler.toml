@@ -11,5 +11,10 @@ routes = [
 directory = ".open-next/assets"
 binding = "ASSETS"
 
+[[d1_databases]]
+binding = "DB"
+database_name = "image-background-remover-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
 [vars]
 MAX_FILE_SIZE_MB = "10"

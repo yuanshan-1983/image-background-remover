@@ -70,6 +70,36 @@ Deploy with Wrangler:
 npm run cf:deploy
 ```
 
+## D1 database setup
+
+Schema and migration files are in:
+
+```bash
+./database/schema.sql
+./database/migrations/0001_init.sql
+```
+
+Create the D1 database:
+
+```bash
+npx wrangler d1 create image-background-remover-db
+```
+
+Then update `wrangler.toml`:
+
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "image-background-remover-db"
+database_id = "YOUR_D1_DATABASE_ID"
+```
+
+Initialize the schema:
+
+```bash
+npx wrangler d1 execute image-background-remover-db --file=./database/schema.sql
+```
+
 ## Cloudflare Pages / Git integration notes
 
 This project is prepared for Cloudflare-compatible deployment using OpenNext and Wrangler.
