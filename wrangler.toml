@@ -18,3 +18,7 @@ database_id = "79edcff9-3be2-47e9-8a29-d26eb7eac838"
 
 [vars]
 MAX_FILE_SIZE_MB = "10"
+GOOGLE_CLIENT_ID = "884413046007-o07vvihre5ro5l0g4fpmn5vfq0tt7s8s.apps.googleusercontent.com"
+AUTH_GOOGLE_ID = "884413046007-o07vvihre5ro5l0g4fpmn5vfq0tt7s8s.apps.googleusercontent.com"
+AUTH_URL = "https://imagebackgroundremover.club"
+NEXTAUTH_URL = "https://imagebackgroundremover.club"

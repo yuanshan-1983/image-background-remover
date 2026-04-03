@@ -1,0 +1,262 @@
+
+> image-background-remover@0.1.0 dev
+> next dev --hostname 0.0.0.0
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+  - Network:      http://0.0.0.0:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1844ms
+ ○ Compiling / ...
+ ✓ Compiled / in 4.2s (461 modules)
+ GET / 200 in 4334ms
+ HEAD / 200 in 26ms
+ ✓ Compiled /api/remove-background in 355ms (253 modules)
+ POST /api/remove-background 200 in 3232ms
+ GET / 200 in 71ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderPageComponent (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1931:24)
+    at async DevServer.renderToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:816:17)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST / 200 in 32ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderPageComponent (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1931:24)
+    at async DevServer.renderToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:816:17)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST / 200 in 21ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 699ms (464 modules)
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderErrorToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2189:24)
+    at async pipe.req.req (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /_next 404 in 796ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderErrorToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2189:24)
+    at async pipe.req.req (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /api 404 in 18ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderErrorToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2189:24)
+    at async pipe.req.req (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /_next/server 404 in 24ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderErrorToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2189:24)
+    at async pipe.req.req (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /app 404 in 24ms
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment. Original error: Cannot read properties of undefined (reading 'workers')
+    at rk (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:1713)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:303
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async rw (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:38:7978)
+    at async r6 (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:41:1256)
+    at async doRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1438:30)
+    at async cacheEntry.responseCache.get.routeKind (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1599:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1507:28)
+    at async DevServer.renderErrorToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2189:24)
+    at async pipe.req.req (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:2063:30)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:368:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /api/route 404 in 15ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Can't resolve '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js' in '/root/.openclaw/workspace/image-background-remover'
+<w> while resolving '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js' in /root/.openclaw/workspace/image-background-remover as file
+<w>  at resolve commonjs /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js
+[Error: ENOENT: no such file or directory, stat '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'
+}
+ ⨯ unhandledRejection: [Error: ENOENT: no such file or directory, stat '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'stat',
+  path: '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, stat '/root/.openclaw/workspace/image-background-remover/.next/cache/webpack/server-development/0.pack.gz'
+ GET /_next/static/css/app/layout.css?v=1775144231174 404 in 112ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- /root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js
+- /root/.openclaw/workspace/image-background-remover/.next/server/app/_not-found/page.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/load-components.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/build/utils.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/hot-middleware.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/hot-reloader-webpack.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js
+- /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js
+    at Function.<anonymous> (node:internal/modules/cjs/loader:1383:15)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    at Function._load (node:internal/modules/cjs/loader:1192:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at __webpack_require__.f.require (/root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js:198:28)
+    at /root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (/root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (/root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js:162:22)
+    at /root/.openclaw/workspace/image-background-remover/.next/server/app/page.js:1:12306
+    at Object.<anonymous> (/root/.openclaw/workspace/image-background-remover/.next/server/app/page.js:1:12351)
+    at Module._compile (node:internal/modules/cjs/loader:1705:14)
+    at Object..js (node:internal/modules/cjs/loader:1838:10)
+    at Module.load (node:internal/modules/cjs/loader:1441:32)
+    at Function._load (node:internal/modules/cjs/loader:1263:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1463:12)
+    at mod.require (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require-hook.js:65:28)
+    at require (node:internal/modules/helpers:147:16)
+    at requirePage (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require.js:109:84)
+    at /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/load-components.js:98:84
+    at async loadComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/next-server.js:710:36)
+    at async DevServer.findPageComponents (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1917:24)
+    at async DevServer.renderToResponseImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:1969:32)
+    at async DevServer.pipeImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:920:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/base-server.js:816:17)
+    at async /root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:174:21)
+    at async handleRequest (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:353:24)
+    at async requestHandlerImpl (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js:377:13)
+    at async Server.requestListener (/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/root/.openclaw/workspace/image-background-remover/.next/server/webpack-runtime.js',
+    '/root/.openclaw/workspace/image-background-remover/.next/server/app/_not-found/page.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/require.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/load-components.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/build/utils.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/hot-middleware.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/dev/hot-reloader-webpack.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-utils/setup-dev-bundler.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/router-server.js',
+    '/root/.openclaw/workspace/image-background-remover/node_modules/next/dist/server/lib/start-server.js'
+  ],
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 3.3s (674 modules)
+ GET / 500 in 3464ms
+[?25h

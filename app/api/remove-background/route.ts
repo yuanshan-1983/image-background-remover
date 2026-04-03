@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireSession } from "@/lib/auth/session";
-import { getFreeDailyRemoveBgLimit, getTodayUsageDate } from "@/lib/auth/limits";
+import { getDailyLimitForPlan, getTodayUsageDate, isUnlimitedUser } from "@/lib/auth/limits";
 import { getUserUsageCountForDate, incrementDailyUsage, logUsage } from "@/lib/auth/usage";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -51,14 +51,19 @@ export async function POST(request: NextRequest) {
     }
 
     const usageDate = getTodayUsageDate();
-    const usedCount = await getUserUsageCountForDate(session.user.id, usageDate);
-    const freeLimit = getFreeDailyRemoveBgLimit();
+    const unlimited = isUnlimitedUser(session.user.email);
 
-    if (usedCount >= freeLimit) {
-      return NextResponse.json(
-        { error: `You have reached your free daily limit of ${freeLimit} background removals.` },
-        { status: 403 }
-      );
+    if (!unlimited) {
+      const userPlan = (session.user as any).plan as string | undefined;
+      const dailyLimit = getDailyLimitForPlan(userPlan);
+      const usedCount = await getUserUsageCountForDate(session.user.id, usageDate);
+
+      if (usedCount >= dailyLimit) {
+        return NextResponse.json(
+          { error: `You have reached your daily limit of ${dailyLimit} background removals.${userPlan !== "pro" ? " Upgrade to Pro for 100/day." : ""}` },
+          { status: 403 }
+        );
+      }
     }
 
     const removeBgFormData = new FormData();

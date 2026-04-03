@@ -1,9 +1,11 @@
 export type D1StatementLike = {
   bind: (...values: unknown[]) => {
     first: <T = unknown>() => Promise<T | null>;
+    all: <T = unknown>() => Promise<{ results: T[] }>;
     run: () => Promise<unknown>;
   };
   first?: <T = unknown>() => Promise<T | null>;
+  all?: <T = unknown>() => Promise<{ results: T[] }>;
   run?: () => Promise<unknown>;
 };
 
@@ -23,6 +25,22 @@ export function getCloudflareEnv() {
   }
 
   return maybeEnv as Record<string, unknown>;
+}
+
+export function getEnvValue(name: string) {
+  const cfEnv = getCloudflareEnv();
+  const cfValue = cfEnv?.[name];
+
+  if (typeof cfValue === "string" && cfValue.length > 0) {
+    return cfValue;
+  }
+
+  const processValue = process.env[name];
+  if (processValue) {
+    return processValue;
+  }
+
+  return undefined;
 }
 
 export function getD1Binding() {
